@@ -4,8 +4,10 @@ import "./index.css"; // Importing the index.css file
 const App = () => {
   const [text, setText] = useState<string>("");
 
-  const [changedText, setChangedText] = useState<unknown>([]);
-  const [shutterLinks, setShutterLinks] = useState<unknown>([]);
+  // Define the state with specific types
+  const [changedText, setChangedText] = useState<string[]>([]);
+  const [shutterLinks, setShutterLinks] = useState<{ url: string; name: string }[]>([]);
+
   const changeText = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
 
@@ -14,8 +16,6 @@ const App = () => {
         return item.replaceAll("_", " ").slice(13, item.length - 43);
       })
     );
-
-    // https://www.shutterstock.com/search/crowded-city?image_type=photo
 
     setChangedText([...newArr]);
 
@@ -36,16 +36,13 @@ const App = () => {
   };
 
   return (
-    <div
-      className="w-full 
-  "
-    >
-      <form className=" flex flex-col gap-4 ">
+    <div className="w-full">
+      <form className="flex flex-col gap-4">
         <textarea
-          placeholder=" Mətn əlavə edin..."
-          className="w-1/2 h-[200px] bg-white indent-3 p-4 rounded "
+          placeholder="Mətn əlavə edin..."
+          className="w-1/2 h-[200px] bg-white indent-3 p-4 rounded"
           value={text}
-          onChange={(e) => setText(` ${e.target.value}`)}
+          onChange={(e) => setText(e.target.value)} // Removed leading space
         />
         <span>
           <button
@@ -59,10 +56,10 @@ const App = () => {
       <div className="mt-16">
         <p className="text-black text-3xl mb-3">Çevrilmiş mətn:</p>
         <div>
-          {changedText?.length > 0 &&
-            changedText?.map((item: string, index: number) => {
+          {changedText.length > 0 &&
+            changedText.map((item: string, index: number) => {
               return (
-                <p>
+                <p key={index}> {/* Added key prop */}
                   {index + 1}. {item}
                 </p>
               );
@@ -72,13 +69,15 @@ const App = () => {
       <div className="mt-16">
         <p className="text-black text-3xl mb-3">Shutter links:</p>
         <div>
-          {shutterLinks?.length > 0 &&
-            shutterLinks?.map((item: string, index: number) => {
+          {shutterLinks.length > 0 &&
+            shutterLinks.map((item, index) => { // Type can be inferred
               return (
                 <a
+                  key={index} // Added key prop
                   href={item.url}
                   className="block text-blue-500"
-                  target="blank"
+                  target="_blank" // Changed to "_blank" for opening in new tab
+                  rel="noopener noreferrer" // Added for security
                 >
                   {index + 1}. {item.name}
                 </a>
