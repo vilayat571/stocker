@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "Oceanwide"; /* Corrected spelling */
+  src: local("Oceanwide"),
+    url("./assets/fonts/oceanwide-cufonfonts/Oceanwide-Semibold.otf") 
+      format("opentype"); /* Changed format for clarity */
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Oceanwide", sans-serif; /* Corrected spelling */
+  scroll-behavior: smooth;
+  background-color: #F8F8F8;
+  overflow-x: hidden;
+  padding-left: 60px;
+  padding-top: 60px;
+  padding-bottom: 60px;
+}
