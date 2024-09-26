@@ -13,7 +13,8 @@ const App = () => {
 
     const newArr = new Set(
       text.split(",").map((item) => {
-        return item.replaceAll("_", " ").slice(13, item.length - 43);
+        // Use replace with regex to replace all "_" with " "
+        return item.replace(/_/g, " ").slice(13, item.length - 43);
       })
     );
 
