@@ -52,7 +52,7 @@ const App = () => {
           url: `https://www.shutterstock.com/search/${item
             .trimStart()
             .split(" ")
-            .slice(0, 2)
+            .slice(0, 6)
             .join(" ")}?image_type=photo`,
           name: item,
         };
